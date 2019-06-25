@@ -1,6 +1,10 @@
 package testData;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import utils.Utils;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class TestData {
 
@@ -20,7 +24,9 @@ public class TestData {
         return "aB123456";
     }
 
-    public static String getUserEmail() {
-        return getRandomString(6).toLowerCase() + "@afteir.com";
+    public static String getUserEmail() throws IOException {
+        ArrayList<String> domains = Utils.getEmailDomains();
+
+        return getRandomString(6).toLowerCase() + domains.get(0);
     }
 }

@@ -9,25 +9,37 @@ import static com.codeborne.selenide.Selectors.*;
 
 public class RegistrationPage {
 
-    private String pageUrl = "https://my.rozetka.com.ua/signup/";
     private SelenideElement content = $(".signup");
     private SelenideElement nameField = $(byName("title"));
     private SelenideElement emailField = $(byName("login"));
     private SelenideElement passwordField = $(byName("password"));
     private SelenideElement submitButton = $(".btn-link-sign");
 
+    /**
+     * Open Registration page by url
+     *
+     * @return instance of the registration page
+     */
     public RegistrationPage open() {
-        Selenide.open(pageUrl);
+        Selenide.open("https://my.rozetka.com.ua/signup/");
+
         return this;
     }
 
-    public ProfilePage CreateNewUser(String name, String email, String password) {
-        open();
-        $(nameField).setValue(name);
-        $(emailField).setValue(email);
-        $(passwordField).setValue(password);
-        $(submitButton).click();
-        $(content).waitUntil(Condition.disappear, 20000);
+    /**
+     * Create new user
+     *
+     * @param name     user name
+     * @param email    user email or phone number
+     * @param password password
+     * @return instance of the profile page
+     */
+    public ProfilePage createNewUser(String name, String email, String password) {
+        nameField.setValue(name);
+        emailField.setValue(email);
+        passwordField.setValue(password);
+        submitButton.click();
+        content.waitUntil(Condition.disappear, 20000);
 
         return new ProfilePage();
     }
